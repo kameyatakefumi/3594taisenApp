@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job id="ImageDownloader"
+     xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
+     version="1.0">
+    
+    <step id="step1">
+        
+        <properties>
+            <property name="javax.transaction.global.timeout" value="600" />
+        </properties>
+        
+        <batchlet ref="ImageDownloader">
+            <properties>
+                <property name="imagePath" value="src\\main\\webapp\\resources\\img\\twitter" />
+                <property name="word" value="#{jobParameters['word']}" />
+                <property name="since" value="#{jobParameters['since']}" />
+                <property name="until" value="#{jobParameters['until']}" />
+            </properties>
+        </batchlet>
+        
+    </step>
+    
+</job>
