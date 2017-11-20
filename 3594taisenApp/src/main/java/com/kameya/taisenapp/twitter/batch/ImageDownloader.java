@@ -26,7 +26,7 @@ public class ImageDownloader implements Batchlet {
 
     @Inject
     @BatchProperty
-    protected String imagePath;
+    protected String imageOutputPath;
 
     @Inject
     @BatchProperty
@@ -56,7 +56,7 @@ public class ImageDownloader implements Batchlet {
 
             for (Status tweet : tweets) {
 
-                String tweetDir = imagePath + "\\" + tweet.getId();
+                String tweetDir = imageOutputPath + "\\" + tweet.getId();
 
                 if (Files.exists(Paths.get(tweetDir))) {
                     continue;

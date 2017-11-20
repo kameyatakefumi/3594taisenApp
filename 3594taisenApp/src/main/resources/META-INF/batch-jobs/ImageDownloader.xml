@@ -11,7 +11,7 @@
         
         <batchlet ref="ImageDownloader">
             <properties>
-                <property name="imagePath" value="src\\main\\webapp\\resources\\img\\twitter" />
+                <property name="imageOutputPath" value="src\\main\\webapp\\resources\\img\\twitter" />
                 <property name="word" value="#{jobParameters['word']}" />
                 <property name="since" value="#{jobParameters['since']}" />
                 <property name="until" value="#{jobParameters['until']}" />
