@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job id="ContourProcessing"
+     xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
+     version="1.0">
+    
+    <step id="step1">
+        
+        <properties>
+            <property name="javax.transaction.global.timeout" value="600" />
+        </properties>
+        
+        <batchlet ref="ContourProcessing">
+            <properties>
+                <property name="imagePath" value="#{jobParameters['imagePath']}" />
+                <property name="thresholdValue" value="0" />
+                <property name="thresholdMaxValue" value="255" />
+                <property name="contourAreaMinValue" value="15000" />
+            </properties>
+        </batchlet>
+        
+    </step>
+    
+</job>
