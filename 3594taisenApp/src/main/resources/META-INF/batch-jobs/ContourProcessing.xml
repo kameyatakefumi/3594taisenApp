@@ -11,7 +11,7 @@
         
         <batchlet ref="ContourProcessing">
             <properties>
-                <property name="imagePath" value="#{jobParameters['imagePath']}" />
+                <property name="imageFilePath" value="#{jobParameters['imageFilePath']}" />
                 <property name="thresholdValue" value="0" />
                 <property name="thresholdMaxValue" value="255" />
                 <property name="contourAreaMinValue" value="15000" />

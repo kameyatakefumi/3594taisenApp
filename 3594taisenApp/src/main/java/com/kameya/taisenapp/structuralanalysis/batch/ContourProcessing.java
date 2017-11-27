@@ -45,7 +45,7 @@ public class ContourProcessing implements Batchlet {
 
     @Inject
     @BatchProperty
-    protected String imagePath;
+    protected String imageFilePath;
 
     @Inject
     @BatchProperty
@@ -62,12 +62,12 @@ public class ContourProcessing implements Batchlet {
     @Override
     public String process() throws Exception {
 
-        if (!Files.exists(Paths.get(imagePath))) {
+        if (!Files.exists(Paths.get(imageFilePath))) {
             return BatchStatus.FAILED.name();
         }
 
         // 画像を読込
-        Mat mat = imread(imagePath);
+        Mat mat = imread(imageFilePath);
         Mat clone = mat.clone();
 
         // グレースケール化
@@ -99,7 +99,7 @@ public class ContourProcessing implements Batchlet {
 
                     // １単位を収集
                     Rect rect = boundingRect(approx);
-                    details.add(new Mat(mat, rect));
+                    details.add(0, new Mat(mat, rect));
 
                     // 輪郭を塗る
                     drawContours(clone, contours, i, Scalar.RED, 2, CV_AA, hierarchy, max_level, new Point());
@@ -108,9 +108,9 @@ public class ContourProcessing implements Batchlet {
         }
 
         // 画像を保存
-        Path parentPath = Paths.get(imagePath).getParent();
-        String baseName = FilenameUtils.getBaseName(imagePath);
-        String extension = FilenameUtils.getExtension(imagePath);
+        Path parentPath = Paths.get(imageFilePath).getParent();
+        String baseName = FilenameUtils.getBaseName(imageFilePath);
+        String extension = FilenameUtils.getExtension(imageFilePath);
 
         Path grayPath = parentPath.resolve(baseName + "_gray." + extension);
         imwrite(grayPath.toString(), gray);

@@ -11,7 +11,7 @@ public class ContourProcessingTest {
     public void process() throws Exception {
 
         ContourProcessing processing = new ContourProcessing();
-        processing.imagePath = "src\\main\\webapp\\resources\\img\\twitter\\930966539393748997\\DOt1H2fWkAATAEN.jpg";
+        processing.imageFilePath = "src\\main\\webapp\\resources\\img\\twitter\\934217089518264321\\DPcBexMUIAAiUYi.jpg";
         processing.thresholdValue = 0D;
         processing.thresholdMaxValue = 255D;
         processing.contourAreaMinValue = 15000D;
