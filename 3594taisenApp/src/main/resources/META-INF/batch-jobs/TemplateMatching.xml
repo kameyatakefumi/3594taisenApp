@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job id="TemplateMatching"
+     xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
+     version="1.0">
+    
+    <step id="step1">
+        
+        <properties>
+            <property name="javax.transaction.global.timeout" value="600" />
+        </properties>
+        
+        <batchlet ref="TemplateMatching">
+            <properties>
+                <property name="imagesFilePath" value="#{jobParameters['imageFilePath']}" />
+                <property name="templatesFolderPath" value="src\\main\\webapp\\resources\\img\\template" />
+                <property name="thresholdValue" value="0.95" />
+                <property name="heightRatio" value="0.72" />
+                <property name="widthRatio" value="0.625" />
+            </properties>
+        </batchlet>
+        
+    </step>
+    
+</job>
