@@ -12,9 +12,9 @@ public class ImageDownloaderTest {
 
         ImageDownloader downloader = new ImageDownloader();
         downloader.imageOutputPath = "src\\main\\webapp\\resources\\img\\twitter";
-        downloader.word = "#三国志大戦登用 -rt -bot";
+        downloader.word = "#解任 -rt -bot";
         downloader.since = "2017-11-25";
-        downloader.until = "2017-11-26";
+        downloader.until = "2017-12-02";
         String result = downloader.process();
 
         assertThat(result, is(BatchStatus.COMPLETED.name()));
