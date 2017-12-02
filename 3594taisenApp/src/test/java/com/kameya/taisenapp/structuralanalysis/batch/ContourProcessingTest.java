@@ -39,6 +39,8 @@ public class ContourProcessingTest {
             if (!folder.isDirectory()) {
                 continue;
             }
+            
+            System.out.println("folder name = " + folder.getName());
 
             for (File file : folder.listFiles()) {
 

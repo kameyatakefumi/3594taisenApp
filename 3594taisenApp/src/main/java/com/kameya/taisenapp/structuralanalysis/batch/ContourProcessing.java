@@ -40,31 +40,33 @@ import static org.bytedeco.javacpp.opencv_imgproc.threshold;
 @Named
 @Dependent
 public class ContourProcessing implements Batchlet {
-
+    
     private static final DecimalFormat FORMAT = new DecimalFormat("00");
-
+    
     @Inject
     @BatchProperty
     protected String imageFilePath;
-
+    
     @Inject
     @BatchProperty
     protected Double thresholdValue;
-
+    
     @Inject
     @BatchProperty
     protected Double thresholdMaxValue;
-
+    
     @Inject
     @BatchProperty
     protected Double contourAreaMinValue;
-
+    
     @Override
     public String process() throws Exception {
-
+        
         if (!Files.exists(Paths.get(imageFilePath))) {
             return BatchStatus.FAILED.name();
         }
+        
+        System.out.println("file name = " + FilenameUtils.getName(imageFilePath));
 
         // 画像を読込
         Mat mat = imread(imageFilePath);
@@ -81,7 +83,7 @@ public class ContourProcessing implements Batchlet {
         MatVector contours = new MatVector();
         Mat hierarchy = new Mat();
         findContours(gray, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_TC89_L1);
-
+        
         List<Mat> details = new ArrayList<>();
         int max_level = 0;
         for (int i = 0; i < contours.size(); i++) {
@@ -111,13 +113,13 @@ public class ContourProcessing implements Batchlet {
         Path parentPath = Paths.get(imageFilePath).getParent();
         String baseName = FilenameUtils.getBaseName(imageFilePath);
         String extension = FilenameUtils.getExtension(imageFilePath);
-
+        
         Path grayPath = parentPath.resolve(baseName + "_gray." + extension);
         imwrite(grayPath.toString(), gray);
-
+        
         Path resultPath = parentPath.resolve(baseName + "_result." + extension);
         imwrite(resultPath.toString(), clone);
-
+        
         for (int i = 0; i < details.size(); i++) {
             Path detailPath = parentPath.resolve(baseName + "_result_" + FORMAT.format(i + 1) + "." + extension);
             imwrite(detailPath.toString(), details.get(i));
@@ -132,13 +134,13 @@ public class ContourProcessing implements Batchlet {
                         "thresholdMaxValue   : " + thresholdMaxValue,
                         "contourAreaMinValue : " + contourAreaMinValue),
                 StandardOpenOption.CREATE, StandardOpenOption.WRITE);
-
+        
         return BatchStatus.COMPLETED.name();
     }
-
+    
     @Override
     public void stop() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
 }
