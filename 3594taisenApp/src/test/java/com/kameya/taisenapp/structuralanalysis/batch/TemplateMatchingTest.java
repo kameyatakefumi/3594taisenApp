@@ -37,6 +37,8 @@ public class TemplateMatchingTest {
 
             if (file.isDirectory()) {
 
+                System.out.println("folder = " + file.getName());
+
                 matching.imagesInputPath = file.toString();
                 String result = matching.process();
 

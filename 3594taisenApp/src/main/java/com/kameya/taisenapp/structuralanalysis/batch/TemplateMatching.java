@@ -87,6 +87,8 @@ public class TemplateMatching implements Batchlet {
                     List<Point> points = getPointsFromMatAboveThreshold(resultMat, thresholdValue);
                     if (!points.isEmpty()) {
 
+                        System.out.println("template name = " + template.getName() + ", image name = " + imageName);
+
                         Point point = points.get(0);
                         rectangle(imageMat, new Rect(point.x(), point.y(), templateMat.cols(), templateMat.rows()), Scalar.RED, 2, 0, 0);
 
@@ -124,7 +126,7 @@ public class TemplateMatching implements Batchlet {
         for (int y = 0; y < m.rows(); y++) {
             for (int x = 0; x < m.cols(); x++) {
                 if (indexer.get(y, x) > t) {
-                    System.out.println("(" + x + "," + y + ") = " + indexer.get(y, x));
+//                    System.out.println("(" + x + "," + y + ") = " + indexer.get(y, x));
                     matches.add(new Point(x, y));
                 }
             }
