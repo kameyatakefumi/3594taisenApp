@@ -68,7 +68,7 @@ public class TemplateMatching implements Batchlet {
 
                 String imageName = image.getName();
 
-                if (imageName.matches(".*_result_[0-9]{2}.*")) {
+                if (imageName.matches(".*_result_[0-9]{2}.*") && !imageName.matches(".*_result_[0-9]{2}_match_.*")) {
 
                     Mat imageMat = imread(image.toPath().toString());
                     Mat greyMat = new Mat(imageMat.size(), CV_8UC1);
