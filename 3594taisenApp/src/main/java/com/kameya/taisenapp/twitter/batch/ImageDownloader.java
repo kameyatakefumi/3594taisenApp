@@ -26,7 +26,7 @@ public class ImageDownloader implements Batchlet {
 
     @Inject
     @BatchProperty
-    protected String imageOutputPath;
+    protected String imagesOutputFolderPath;
 
     @Inject
     @BatchProperty
@@ -43,9 +43,14 @@ public class ImageDownloader implements Batchlet {
     @Override
     public String process() throws Exception {
 
+        System.out.println(word);
+
         Query query = new Query(word);
         query.setSince(since);
         query.setUntil(until);
+
+        int tweetsExistsCount = 0;
+        int tweetsNotExistsCount = 0;
 
         Twitter twitter = new TwitterFactory().getInstance();
         QueryResult result;
@@ -56,11 +61,15 @@ public class ImageDownloader implements Batchlet {
 
             for (Status tweet : tweets) {
 
-                String tweetDir = imageOutputPath + "\\" + tweet.getId();
+                String tweetDir = imagesOutputFolderPath + "\\" + tweet.getId();
 
                 if (Files.exists(Paths.get(tweetDir))) {
+                    System.out.println("exists = " + tweet.getId());
+                    tweetsExistsCount++;
                     continue;
                 } else {
+                    System.out.println("not exists = " + tweet.getId());
+                    tweetsNotExistsCount++;
                     Files.createDirectories(Paths.get(tweetDir));
                 }
 
@@ -78,12 +87,16 @@ public class ImageDownloader implements Batchlet {
                                 FileOutputStream fos = new FileOutputStream(outputPath)) {
                             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
                         }
+
+                        System.out.println("download = " + imageName);
                     }
                 }
             }
 
         } while ((query = result.nextQuery()) != null);
 
+        System.out.println("tweetsExistsCount = " + tweetsExistsCount);
+        System.out.println("tweetsNotExistsCount = " + tweetsNotExistsCount);
         return BatchStatus.COMPLETED.name();
     }
 
